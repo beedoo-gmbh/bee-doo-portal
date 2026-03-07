@@ -32,31 +32,31 @@ export default function LoginPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#08080E',
+      background: '#0a0a0a',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: "'DM Sans', sans-serif",
-      backgroundImage: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,166,35,0.08) 0%, transparent 60%)',
+      backgroundImage: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,197,0,0.06) 0%, transparent 60%)',
     }}>
       <div style={{ width: '100%', maxWidth: 400, padding: '0 24px' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <div style={{
-            width: 56, height: 56, background: 'linear-gradient(135deg, #F5A623, #E8941A)',
+            width: 56, height: 56, background: 'linear-gradient(135deg, #F5C500, #D4A800)',
             borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 28, margin: '0 auto 16px', boxShadow: '0 0 30px rgba(245,166,35,0.3)',
+            fontSize: 28, margin: '0 auto 16px', boxShadow: '0 0 30px rgba(245,197,0,0.3)',
           }}>☀️</div>
-          <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, color: '#E8E8F2' }}>
-            bee<span style={{ color: '#F5A623' }}>-doo</span> Portal
+          <div style={{ fontFamily: "'Space Grotesk', 'DM Sans', sans-serif", fontSize: 28, color: 'rgba(255,255,255,0.9)' }}>
+            bee<span style={{ color: '#F5C500' }}>-doo</span> Portal
           </div>
-          <div style={{ color: '#6B6B80', fontSize: 14, marginTop: 6 }}>Ihr persönlicher Zugang</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 14, marginTop: 6 }}>Ihr persönlicher Zugang</div>
         </div>
 
         {!sent ? (
           <form onSubmit={handleLogin}>
             <div style={{ marginBottom: 12 }}>
-              <label style={{ display: 'block', fontSize: 13, color: '#9292A0', marginBottom: 8 }}>
+              <label style={{ display: 'block', fontSize: 13, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>
                 E-Mail-Adresse
               </label>
               <input
@@ -67,13 +67,13 @@ export default function LoginPage() {
                 placeholder="max@mustermann.de"
                 style={{
                   width: '100%', padding: '14px 16px',
-                  background: '#18181F', border: '1px solid #242430',
-                  borderRadius: 12, color: '#E8E8F2', fontSize: 15,
+                  background: '#141414', border: '1px solid rgba(255,255,255,0.06)',
+                  borderRadius: 12, color: 'rgba(255,255,255,0.9)', fontSize: 15,
                   outline: 'none', boxSizing: 'border-box',
                   transition: 'border-color 0.2s',
                 }}
-                onFocus={e => (e.target.style.borderColor = '#F5A623')}
-                onBlur={e  => (e.target.style.borderColor = '#242430')}
+                onFocus={e => (e.target.style.borderColor = '#F5C500')}
+                onBlur={e  => (e.target.style.borderColor = 'rgba(255,255,255,0.06)')}
               />
             </div>
 
@@ -88,9 +88,9 @@ export default function LoginPage() {
               disabled={loading || !email}
               style={{
                 width: '100%', padding: '14px',
-                background: loading ? '#6B6B80' : 'linear-gradient(135deg, #F5A623, #E8941A)',
+                background: loading ? 'rgba(255,255,255,0.4)' : 'linear-gradient(135deg, #F5C500, #D4A800)',
                 border: 'none', borderRadius: 12,
-                color: '#08080E', fontSize: 15, fontWeight: 700,
+                color: '#0a0a0a', fontSize: 15, fontWeight: 700,
                 fontFamily: "'DM Sans', sans-serif", cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'opacity 0.2s', marginTop: 8,
               }}
@@ -98,7 +98,7 @@ export default function LoginPage() {
               {loading ? 'Wird gesendet…' : 'Magic Link anfordern ✨'}
             </button>
 
-            <p style={{ textAlign: 'center', fontSize: 12, color: '#6B6B80', marginTop: 20, lineHeight: 1.6 }}>
+            <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.4)', marginTop: 20, lineHeight: 1.6 }}>
               Kein Passwort nötig. Wir senden Ihnen einen sicheren Login-Link per E-Mail.
             </p>
           </form>
@@ -108,15 +108,15 @@ export default function LoginPage() {
             borderRadius: 16, padding: 32, textAlign: 'center',
           }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>📬</div>
-            <div style={{ fontSize: 20, fontFamily: "'DM Serif Display', serif", color: '#E8E8F2', marginBottom: 8 }}>
+            <div style={{ fontSize: 20, fontFamily: "'Space Grotesk', 'DM Sans', sans-serif", color: 'rgba(255,255,255,0.9)', marginBottom: 8 }}>
               Link verschickt!
             </div>
-            <div style={{ color: '#9292A0', fontSize: 14, lineHeight: 1.7 }}>
-              Bitte prüfen Sie Ihre E-Mail <strong style={{ color: '#E8E8F2' }}>{email}</strong> und klicken Sie auf den Login-Link.
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, lineHeight: 1.7 }}>
+              Bitte prüfen Sie Ihre E-Mail <strong style={{ color: 'rgba(255,255,255,0.9)' }}>{email}</strong> und klicken Sie auf den Login-Link.
             </div>
             <button
               onClick={() => setSent(false)}
-              style={{ marginTop: 20, background: 'transparent', border: '1px solid #242430', color: '#9292A0', borderRadius: 8, padding: '8px 16px', cursor: 'pointer', fontSize: 13, fontFamily: "'DM Sans', sans-serif" }}
+              style={{ marginTop: 20, background: 'transparent', border: '1px solid rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)', borderRadius: 8, padding: '8px 16px', cursor: 'pointer', fontSize: 13, fontFamily: "'DM Sans', sans-serif" }}
             >
               Andere E-Mail verwenden
             </button>
