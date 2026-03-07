@@ -2,7 +2,7 @@
 // =============================================================
 // PortalDemo.tsx – bee-doo Kundenportal Demo
 // Testkunde: Thomas Berger | Paderborn | 9,8 kWp Anlage
-// Design: DM Sans | #0c1222 | #FDE154
+// Design: DM Sans | #0a0a0a | #F5C500
 // =============================================================
 import { useState } from 'react';
 import {
@@ -12,15 +12,15 @@ import {
 
 // ─── Design System ────────────────────────────────────────────
 const DS = {
-  bg:      '#0c1222',
-  c1:      '#151d30',
-  c2:      '#1c2640',
-  bd:      '#263354',
-  tx:      '#e1e7ef',
-  dm:      '#5c6b8a',
-  y:       '#FDE154',
-  yDim:    'rgba(253,225,84,0.10)',
-  yBd:     'rgba(253,225,84,0.22)',
+  bg:      '#0a0a0a',
+  c1:      '#141414',
+  c2:      '#1a1a1a',
+  bd:      'rgba(255,255,255,0.06)',
+  tx:      'rgba(255,255,255,0.9)',
+  dm:      'rgba(255,255,255,0.45)',
+  y:       '#F5C500',
+  yDim:    'rgba(245,197,0,0.10)',
+  yBd:     'rgba(245,197,0,0.22)',
   green:   '#22c55e',
   greenDim:'rgba(34,197,94,0.10)',
   blue:    '#3b82f6',
@@ -689,7 +689,7 @@ export default function PortalDemo() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+        
         * { box-sizing: border-box; }
         body { margin: 0; background: ${DS.bg}; }
         details summary::-webkit-details-marker { display: none; }
