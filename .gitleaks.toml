@@ -1,0 +1,45 @@
+# gitleaks configuration for bee-doo repos
+title = "bee-doo Secret Scanner"
+
+[allowlist]
+  description = "Known safe patterns"
+  paths = [
+    '''node_modules''',
+    '''\.env\.local\.example''',
+    '''package-lock\.json''',
+  ]
+
+# Custom rules for bee-doo specific patterns
+[[rules]]
+  id = "supabase-service-role"
+  description = "Supabase Service Role Key"
+  regex = '''eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+service_role[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+'''
+  tags = ["supabase", "critical"]
+
+[[rules]]
+  id = "supabase-jwt-secret"
+  description = "Supabase JWT Secret"
+  regex = '''JWT_SECRET\s*[=:]\s*[A-Za-z0-9+/=]{20,}'''
+  tags = ["supabase", "critical"]
+
+[[rules]]
+  id = "postmark-token"
+  description = "Postmark Server Token"
+  regex = '''[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'''
+  tags = ["postmark"]
+  [rules.allowlist]
+    description = "UUID in non-secret context"
+    regexTarget = "line"
+    regexes = ['''uuid_generate|DEFAULT uuid|PRIMARY KEY''']
+
+[[rules]]
+  id = "vercel-token"
+  description = "Vercel Deploy Token"
+  regex = '''vcp_[A-Za-z0-9]{50,}'''
+  tags = ["vercel", "critical"]
+
+[[rules]]
+  id = "github-pat"
+  description = "GitHub Personal Access Token"
+  regex = '''github_pat_[A-Za-z0-9_]{80,}'''
+  tags = ["github", "critical"]
