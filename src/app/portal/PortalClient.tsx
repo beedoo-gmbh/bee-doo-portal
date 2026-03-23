@@ -150,7 +150,7 @@ export default function PortalClient({ snapshot, milestones, documents, monitori
 
   // Karte — Satellitenbild URL (Google Maps Static)
   const mapCenter = encodeURIComponent(`${adresse}, ${plz} ${ort}`);
-  const mapUrl    = `https://maps.googleapis.com/maps/api/staticmap?center=${mapCenter}&zoom=18&size=600x300&maptype=satellite&key=AIzaSyCra7fsO1X6iTszhOCI_x2eyG-3IQqlLno`;
+  const mapUrl    = `https://maps.googleapis.com/maps/api/staticmap?center=${mapCenter}&zoom=18&size=600x300&maptype=satellite&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || ''}`;
 
   // Monitoring-Aggregat
   const total_kwh = monitoring.reduce((s, m) => s + (m.production_kwh ?? 0), 0);
