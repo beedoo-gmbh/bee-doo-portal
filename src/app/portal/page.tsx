@@ -15,7 +15,7 @@ import PortalClient from './PortalClient';
 
 export default async function PortalPage() {
   // Auth-Check (Middleware macht das auch, aber hier als Fallback)
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 

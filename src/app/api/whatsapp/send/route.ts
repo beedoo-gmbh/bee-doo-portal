@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'customerId und trigger erforderlich' }, { status: 400 });
     }
 
-    const supabase = createServerSupabase();
+    const supabase = await createServerSupabase();
 
     // Kundendaten laden
     const { data: customer, error: cErr } = await supabase
@@ -125,7 +125,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const tomorrowStr = tomorrow.toISOString().substring(0, 10);

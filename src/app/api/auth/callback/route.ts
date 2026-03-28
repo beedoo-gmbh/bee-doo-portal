@@ -1,7 +1,7 @@
 // =============================================================
 // app/api/auth/callback/route.ts – Magic Link Exchange
 // =============================================================
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -16,15 +16,21 @@ export async function GET(request: NextRequest) {
   }
 
   if (code) {
-    const cookieStore = cookies();
+    // Next.js 15: cookies() is now async
+    const cookieStore = await cookies();
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          get:    (name) => cookieStore.get(name)?.value,
-          set:    (name, value, options: CookieOptions) => { try { cookieStore.set({ name, value, ...options }); } catch {} },
-          remove: (name, options: CookieOptions) => { try { cookieStore.set({ name, value: '', ...options }); } catch {} },
+          getAll: () => cookieStore.getAll(),
+          setAll: (cookiesToSet) => {
+            try {
+              cookiesToSet.forEach(({ name, value, options }) =>
+                cookieStore.set(name, value, options)
+              );
+            } catch {}
+          },
         },
       }
     );

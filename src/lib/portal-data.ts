@@ -7,7 +7,7 @@ import type { CustomerPortalView, Milestone, Document, MonitoringMonthly, Referr
 
 // ─── Haupt-Snapshot (via View) ─────────────────────────────────
 export async function getPortalSnapshot(): Promise<CustomerPortalView | null> {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from('v_customer_portal')
     .select('*')
@@ -19,7 +19,7 @@ export async function getPortalSnapshot(): Promise<CustomerPortalView | null> {
 
 // ─── Milestones ────────────────────────────────────────────────
 export async function getMilestones(projectId: string): Promise<Milestone[]> {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data } = await supabase
     .from('milestones')
     .select('*')
@@ -30,7 +30,7 @@ export async function getMilestones(projectId: string): Promise<Milestone[]> {
 
 // ─── Dokumente (inkl. signed URLs) ────────────────────────────
 export async function getDocuments(projectId: string): Promise<Document[]> {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data: docs } = await supabase
     .from('documents')
     .select('*')
@@ -52,7 +52,7 @@ export async function getDocuments(projectId: string): Promise<Document[]> {
 
 // ─── Monitoring (letzte 12 Monate) ────────────────────────────
 export async function getMonitoringData(projectId: string): Promise<MonitoringMonthly[]> {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const twelveMonthsAgo = new Date();
   twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
 
@@ -67,7 +67,7 @@ export async function getMonitoringData(projectId: string): Promise<MonitoringMo
 
 // ─── Referrals ─────────────────────────────────────────────────
 export async function getReferrals(customerId: string): Promise<Referral[]> {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data } = await supabase
     .from('referrals')
     .select('*')
@@ -78,7 +78,7 @@ export async function getReferrals(customerId: string): Promise<Referral[]> {
 
 // ─── Notifications ─────────────────────────────────────────────
 export async function getNotifications(customerId: string): Promise<Notification[]> {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data } = await supabase
     .from('notifications')
     .select('*')
@@ -91,7 +91,7 @@ export async function getNotifications(customerId: string): Promise<Notification
 
 // ─── NPS abgeben ───────────────────────────────────────────────
 export async function submitNps(customerId: string, score: number, comment?: string) {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   return supabase.from('nps_responses').insert({
     customer_id: customerId,
     score,
@@ -102,7 +102,7 @@ export async function submitNps(customerId: string, score: number, comment?: str
 
 // ─── Notification als gelesen markieren ───────────────────────
 export async function markNotificationRead(notificationId: string) {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   return supabase
     .from('notifications')
     .update({ read_at: new Date().toISOString() })

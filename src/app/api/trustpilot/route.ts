@@ -37,7 +37,7 @@ async function fetchTrustpilotReviews(minStars: number = 4, perPage: number = 20
 
 // ─── GET: Reviews aus Cache (Supabase) oder live ──────────────
 export async function GET(request: NextRequest) {
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { searchParams } = new URL(request.url);
   const minStars  = parseInt(searchParams.get('minStars') ?? '4');
   const limit     = parseInt(searchParams.get('limit') ?? '6');
