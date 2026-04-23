@@ -234,7 +234,71 @@ function StatusTab() {
           ))}
         </div>
       </Card>
+      <ExcitementFeed />
     </div>
+  );
+}
+
+// ─── LIVE EXCITEMENT FEED ───
+const ACTIVITY_FEED = [
+  { when: 'Gerade eben',  who: 'Nils Horn',       avatar: 'NH', role: 'Ihr Berater',    msg: 'bereitet Ihre Dachplanung vor',        icon: '🛠️',  tone: 'active' },
+  { when: 'vor 2 Min',    who: 'bee-doo Radar',   avatar: '🛰️', role: 'System',         msg: 'hat Satellitenbild Ihres Dachs analysiert (58 m², Süd-West)', icon: '📐',  tone: 'info' },
+  { when: 'vor 4 Min',    who: 'bee-doo KI',      avatar: '🤖', role: 'System',         msg: 'hat optimale Anlagengröße berechnet: 9,8 kWp + 10 kWh Speicher', icon: '🧮',  tone: 'info' },
+  { when: 'vor 12 Min',   who: 'Nina Backoffice', avatar: '👥', role: 'Backoffice',     msg: 'hat Sie Nils Horn zugewiesen – Meister für Ihre Region', icon: '🤝',  tone: 'info' },
+  { when: 'vor 18 Min',   who: 'bee-doo System',  avatar: '✅', role: 'System',         msg: 'hat Ihre Anfrage erfolgreich aufgenommen',              icon: '📝',  tone: 'done' },
+  { when: 'Geplant 28.04.', who: 'Nils Horn',    avatar: '📹', role: 'Ihr Berater',    msg: 'wird Sie per Video zum Beratungsgespräch treffen',     icon: '🎥',  tone: 'future' },
+  { when: 'Geplant',      who: 'bee-doo Montage', avatar: '🔧', role: 'Meisterbetrieb', msg: 'wird Ihre Anlage in 1–2 Tagen installieren',           icon: '🏗️',  tone: 'future' },
+];
+
+function ExcitementFeed() {
+  const toneStyle = (t: string) => {
+    if (t === 'active') return { bg: `${DS.y}12`, border: `${DS.y}40`, pulse: true, dot: DS.y };
+    if (t === 'done')   return { bg: `${DS.green}10`, border: `${DS.green}30`, pulse: false, dot: DS.green };
+    if (t === 'future') return { bg: 'transparent', border: DS.bd, pulse: false, dot: DS.dm };
+    return { bg: DS.c2, border: DS.bd, pulse: false, dot: DS.blue };
+  };
+  return (
+    <Card style={{ padding: '24px 24px 18px' }}>
+      <style>{`@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 rgba(245,197,0,0.55)}50%{box-shadow:0 0 0 8px rgba(245,197,0,0)}}.live-dot{animation:livePulse 1.8s ease-out infinite}`}</style>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+        <SectionTitle>Live – das passiert gerade für Sie</SectionTitle>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 10px', borderRadius: 100, background: `${DS.green}12`, border: `1px solid ${DS.green}30` }}>
+          <span className="live-dot" style={{ width: 8, height: 8, borderRadius: '50%', background: DS.green, display: 'inline-block' }} />
+          <span style={{ fontSize: 11, fontWeight: 700, color: DS.green, textTransform: 'uppercase', letterSpacing: 1 }}>Live</span>
+        </div>
+      </div>
+      <div style={{ position: 'relative', paddingLeft: 24 }}>
+        <div style={{ position: 'absolute', left: 11, top: 12, bottom: 12, width: 1, background: `linear-gradient(to bottom, ${DS.y}40, ${DS.bd} 50%, transparent)` }} />
+        {ACTIVITY_FEED.map((a, i) => {
+          const st = toneStyle(a.tone);
+          return (
+            <div key={i} style={{ display: 'flex', gap: 14, padding: '10px 0', position: 'relative' }}>
+              <div className={st.pulse ? 'live-dot' : ''} style={{ position: 'absolute', left: -17, top: 18, width: 10, height: 10, borderRadius: '50%', background: st.dot, border: `2px solid ${DS.bg}` }} />
+              <div style={{ width: 40, height: 40, borderRadius: 10, background: st.bg, border: `1px solid ${st.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 700, color: a.tone === 'active' ? DS.y : a.tone === 'done' ? DS.green : DS.tx, flexShrink: 0 }}>
+                {a.avatar}
+              </div>
+              <div style={{ flex: 1, minWidth: 0, paddingTop: 4 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap', marginBottom: 2 }}>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: a.tone === 'future' ? DS.dm : DS.tx }}>{a.who}</span>
+                  <span style={{ fontSize: 11, color: DS.dm, fontWeight: 500 }}>· {a.role}</span>
+                  <span style={{ fontSize: 11, color: DS.dm, marginLeft: 'auto' }}>{a.when}</span>
+                </div>
+                <div style={{ fontSize: 13, color: a.tone === 'future' ? DS.dm : 'rgba(255,255,255,0.78)', lineHeight: 1.45 }}>
+                  <span style={{ marginRight: 6 }}>{a.icon}</span>
+                  {a.msg}
+                  {a.tone === 'active' && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, marginLeft: 8, padding: '2px 8px', borderRadius: 10, background: `${DS.y}15`, color: DS.y, fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                      <span className="live-dot" style={{ width: 5, height: 5, borderRadius: '50%', background: DS.y }} />
+                      live
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Card>
   );
 }
 
