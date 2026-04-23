@@ -9,6 +9,11 @@ import {
   AreaChart, Area, BarChart, Bar,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
+import {
+  ClipboardList, FileText, Zap, Gift, MessageCircle,
+  Phone, MessageSquare, Bell, CheckCircle2, Handshake, Plug,
+  Wrench, PartyPopper, ShieldCheck, Lock, Award
+} from 'lucide-react';
 
 // ─── Design System ────────────────────────────────────────────
 const DS = {
@@ -100,11 +105,11 @@ const REFERRALS = [
 ];
 
 const TABS = [
-  { id: 'status',    icon: '📋', label: 'Projektstatus' },
-  { id: 'dokumente', icon: '📄', label: 'Dokumente'      },
-  { id: 'monitoring',icon: '⚡', label: 'Monitoring'     },
-  { id: 'referral',  icon: '🎁', label: 'Empfehlen'      },
-  { id: 'support',   icon: '💬', label: 'Support'        },
+  { id: 'status',     Icon: ClipboardList, label: 'Projektstatus' },
+  { id: 'dokumente',  Icon: FileText,      label: 'Dokumente'     },
+  { id: 'monitoring', Icon: Zap,           label: 'Monitoring'    },
+  { id: 'referral',   Icon: Gift,          label: 'Empfehlen'     },
+  { id: 'support',    Icon: MessageCircle, label: 'Support'       },
 ] as const;
 type TabId = typeof TABS[number]['id'];
 
@@ -707,12 +712,12 @@ export default function PortalDemo() {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               {/* Demo Badge */}
-              <span style={{ background: 'rgba(251,113,133,0.15)', color: '#fb7185', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 600 }}>
-                🎭 Demo-Modus
+              <span style={{ background: DS.c2, color: DS.dm, padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600, letterSpacing: '0.4px', textTransform: 'uppercase', border: `1px solid ${DS.bd}` }}>
+                Demo
               </span>
               {/* Notifications */}
               <div style={{ position: 'relative', cursor: 'pointer' }}>
-                <div style={{ fontSize: 20 }}>🔔</div>
+                <Bell size={20} strokeWidth={1.75} color={'rgba(15,23,42,0.6)'} />
                 {notifCount > 0 && (
                   <span style={{ position: 'absolute', top: -4, right: -4, background: '#ef4444', color: '#fff', borderRadius: '50%', width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700 }}>
                     {notifCount}
@@ -782,7 +787,7 @@ export default function PortalDemo() {
                     transition: 'all 0.15s',
                   }}
                 >
-                  <span style={{ fontSize: 18 }}>{t.icon}</span>
+                  <t.Icon size={18} strokeWidth={tab === t.id ? 2.2 : 1.75} />
                   {t.label}
                 </button>
               ))}
