@@ -700,11 +700,9 @@ export default function PortalDemo() {
         <header style={{ background: DS.c1, borderBottom: `1px solid ${DS.bd}`, position: 'sticky', top: 0, zIndex: 50 }}>
           <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ background: DS.y, borderRadius: 8, padding: '4px 10px', fontWeight: 800, fontSize: 17, color: DS.bg, letterSpacing: '-0.5px' }}>
-                bee-doo
-              </div>
-              <span style={{ color: DS.bd, fontSize: 20 }}>|</span>
-              <span style={{ color: DS.dm, fontSize: 14 }}>Kundenportal</span>
+              <img src="/bee-doo-Logo.svg" alt="bee-doo" style={{ height: 32, width: 'auto', display: 'block' }} />
+              <span style={{ color: DS.bd, fontSize: 20, margin: '0 4px' }}>|</span>
+              <span style={{ color: DS.dm, fontSize: 14, fontWeight: 500, letterSpacing: '0.3px' }}>Kundenportal</span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>

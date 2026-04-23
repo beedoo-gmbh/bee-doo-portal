@@ -3,7 +3,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de">
       <head>
-        <link rel="icon" href="https://bee-doo-tools.vercel.app/favicon.ico" sizes="32x32" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="preconnect" href="https://rsms.me" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <style dangerouslySetInnerHTML={{ __html: `
