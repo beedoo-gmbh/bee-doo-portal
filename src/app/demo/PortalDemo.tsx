@@ -425,7 +425,7 @@ function ReferralTab() {
           {/* Score Header */}
           <div style={{ padding: '16px 20px 8px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
-              <div style={{ fontSize: 9, fontWeight: 800, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: 3 }}>🪙 × {sales} COINS</div>
+              <div style={{ fontSize: 9, fontWeight: 800, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: 3 }}>{sales} {sales === 1 ? 'Empfehlung' : 'Empfehlungen'} abgeschlossen</div>
               <div style={{ fontSize: 38, fontWeight: 900, color: DS.y, fontFamily: "'DM Sans', monospace", textShadow: `0 0 20px rgba(253,225,84,0.35), 0 2px 0 #b8860b`, marginTop: 2 }}>
                 {earned.toLocaleString('de-DE')}€
               </div>
@@ -524,26 +524,26 @@ function ReferralTab() {
           <div style={{ padding: '10px 16px 14px', display: 'flex', gap: 10, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
             <div style={{ flex: 1, padding: '10px 14px', borderRadius: 10, background: 'rgba(253,225,84,0.06)', border: '1px solid rgba(253,225,84,0.12)' }}>
               <div style={{ fontSize: 8, fontWeight: 800, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 3 }}>
-                {sales >= 4 ? '🔥 MAX LEVEL' : '❓ NÄCHSTE MÜNZE'}
+                {sales >= 4 ? 'MAXIMALBONUS ERREICHT' : `NÄCHSTER BONUS`}
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                <span style={{ fontSize: 18 }}>{sales >= 4 ? '👑' : '🪙'}</span>
+                <Award size={18} strokeWidth={2.2} color={sales >= 4 ? DS.green : DS.y} />
                 <span style={{ fontSize: 22, fontWeight: 900, color: DS.y }}>{nextPraemie.toLocaleString('de-DE')}€</span>
               </div>
               {sales >= 4
-                ? <div style={{ fontSize: 11, color: DS.green, marginTop: 1, fontWeight: 700 }}>Jeder Sale = 1.000€! 🔥</div>
+                ? <div style={{ fontSize: 11, color: DS.green, marginTop: 1, fontWeight: 700 }}>Jede weitere Empfehlung = 1.000 €</div>
                 : <div style={{ fontSize: 11, color: DS.dm, marginTop: 1 }}>Empfehlung #{sales + 1} bringt&apos;s!</div>
               }
             </div>
             <div style={{ flex: 1, padding: '10px 14px', borderRadius: 10, background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.12)' }}>
-              <div style={{ fontSize: 8, fontWeight: 800, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 3 }}>💎 IN DER PIPELINE</div>
+              <div style={{ fontSize: 8, fontWeight: 800, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 3 }}>OFFENE EMPFEHLUNGEN</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                <span style={{ fontSize: 18 }}>💎</span>
+                <Gift size={18} strokeWidth={2.2} color={DS.green} />
                 <span style={{ fontSize: 22, fontWeight: 900, color: DS.green }}>{pending}</span>
                 <span style={{ fontSize: 12, color: DS.dm }}>Leads</span>
               </div>
               {pending > 0
-                ? <div style={{ fontSize: 11, color: DS.green, marginTop: 1, fontWeight: 600 }}>= bis zu {(() => { let s = 0; for (let i = 1; i <= pending; i++) s += getPraemie(sales + i); return s.toLocaleString('de-DE'); })()}€ 💰</div>
+                ? <div style={{ fontSize: 11, color: DS.green, marginTop: 1, fontWeight: 600 }}>= bis zu {(() => { let s = 0; for (let i = 1; i <= pending; i++) s += getPraemie(sales + i); return s.toLocaleString('de-DE'); })()}€</div>
                 : <div style={{ fontSize: 11, color: DS.dm, marginTop: 1 }}>Teilen Sie Ihren Link!</div>
               }
             </div>
@@ -829,7 +829,7 @@ export default function PortalDemo() {
           }}>
             <TrustBadge Icon={Lock}        title="256-Bit SSL"          subtitle="Verschlüsselte Verbindung" />
             <TrustBadge Icon={ShieldCheck} title="DSGVO-konform"         subtitle="Ihre Daten sicher in DE" />
-            <TrustBadge Icon={Award}       title="Meisterbetrieb"        subtitle="HWK-geprüft &amp; zertifiziert" />
+            <TrustBadge Icon={Award}       title="Meisterbetrieb"        subtitle="HWK-geprüft und zertifiziert" />
             <TrustBadge Icon={CheckCircle2} title="Handelsblatt"         subtitle="Top-Solaranbieter 2024" />
           </div>
           <div style={{
