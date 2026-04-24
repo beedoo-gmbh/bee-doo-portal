@@ -135,6 +135,35 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   );
 }
 
+function ActivityItem({
+  when, color, Icon, who, what,
+}: {
+  when: string;
+  color: string;
+  Icon: React.ComponentType<{ size?: number; strokeWidth?: number; color?: string }>;
+  who: string;
+  what: string;
+}) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '10px 12px', borderRadius: 10, background: '#F3F4F7', border: '1px solid rgba(15,23,42,0.06)' }}>
+      <div style={{
+        width: 30, height: 30, borderRadius: 8, flexShrink: 0,
+        background: `${color}18`, color,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <Icon size={14} strokeWidth={2.1} />
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 10, marginBottom: 2, flexWrap: 'wrap' }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#0F172A' }}>{who}</span>
+          <span style={{ fontSize: 11, color: '#64748B', whiteSpace: 'nowrap' }}>{when}</span>
+        </div>
+        <p style={{ margin: 0, fontSize: 12.5, color: '#64748B', lineHeight: 1.5 }}>{what}</p>
+      </div>
+    </div>
+  );
+}
+
 function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   return (
     <div style={{ background: DS.c1, border: `1px solid ${DS.bd}`, borderRadius: 12, padding: '20px 24px', ...style }}>
@@ -229,6 +258,29 @@ function StatusTab() {
               </div>
             );
           })}
+        </div>
+      </Card>
+
+      {/* Live-Activity-Feed — zeigt dem Kunden, dass im Hintergrund gearbeitet wird */}
+      <Card>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: DS.green, boxShadow: `0 0 8px ${DS.green}` }} />
+          <span style={{ fontSize: 11, fontWeight: 700, color: DS.green, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Live-Status</span>
+          <span style={{ fontSize: 12, color: DS.dm }}>Das Team arbeitet gerade an Ihrem Projekt</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <ActivityItem when="Heute 09:14" color={DS.y} Icon={Wrench}
+            who="Montage-Team Schulz"
+            what="Material-Kommissionierung abgeschlossen — Module, Speicher und Wechselrichter sind für den 28.02. reserviert." />
+          <ActivityItem when="Gestern 16:32" color={DS.blue} Icon={Plug}
+            who="Technisches Büro"
+            what="Netzanmeldung bei Westfalen Weser Energie bestätigt — Anlagenregistrierung freigegeben." />
+          <ActivityItem when="Vor 3 Tagen" color={DS.green} Icon={ShieldCheck}
+            who="Versicherung"
+            what="Allrisk-Police aktiviert — Ihre Anlage ist ab dem Installationstag vollumfänglich versichert." />
+          <ActivityItem when="Vor 5 Tagen" color={DS.dm} Icon={ClipboardList}
+            who="Projektleitung"
+            what="Statik-Nachweis durch Dipl.-Ing. M. Kessler geprüft und freigegeben." />
         </div>
       </Card>
 
@@ -861,10 +913,13 @@ function SupportTab() {
       <Card>
         <SectionTitle>Häufige Fragen</SectionTitle>
         {[
-          { q: 'Wann startet die Installation?', a: 'Ihre Installation ist für den 28.02.2025 geplant. Das Montageteam meldet sich 2-3 Tage vorher telefonisch.' },
-          { q: 'Wie funktioniert das Monitoring?', a: 'Nach der Inbetriebnahme können Sie hier in Echtzeit Ihre Erzeugung, Eigenverbrauch und Einspeisung verfolgen.' },
-          { q: 'Wann erhalte ich meine Dokumente?', a: 'Installationsprotokoll und Übergabedokumente werden nach der Inbetriebnahme hochgeladen und sind dann hier downloadbar.' },
-          { q: 'Wie erhalte ich meinen Empfehlungsbonus?', a: 'Der Bonus von 500 € wird nach erfolgreicher Installation der empfohlenen Anlage per Überweisung ausgezahlt.' },
+          { q: 'Wann startet die Installation?', a: 'Ihre Installation ist für den 28.02.2025 geplant. Das Montageteam meldet sich 2-3 Tage vorher telefonisch und stimmt den genauen Uhrzeit-Slot mit Ihnen ab.' },
+          { q: 'Wie lange dauert die Montage?', a: 'Eine 9,8 kWp Anlage wird in der Regel an einem Werktag montiert (7:30-16:00 Uhr). Der Batteriespeicher wird am gleichen Tag angeschlossen.' },
+          { q: 'Brauche ich einen Elektriker?', a: 'Nein. bee-doo bringt einen eigenen eingetragenen Elektromeister-Betrieb mit. Die Netzanmeldung übernehmen wir auch — Sie müssen nichts koordinieren.' },
+          { q: 'Wie funktioniert das Monitoring?', a: 'Nach der Inbetriebnahme sehen Sie hier in Echtzeit Ihre Erzeugung, Eigenverbrauch und Einspeisung. App-Anbindung für iOS/Android folgt automatisch.' },
+          { q: 'Wann erhalte ich meine Dokumente?', a: 'Installationsprotokoll und Übergabedokumente werden am Tag der Inbetriebnahme hochgeladen und sind dann hier herunterladbar. Steuerunterlagen folgen mit der ersten Jahresabrechnung.' },
+          { q: 'Was ist, wenn etwas kaputt geht?', a: 'bee-doo ist Ihr einziger Ansprechpartner. Module 30 Jahre Garantie, Wechselrichter 12 Jahre, Speicher 10 Jahre. Technische Störungen rufen wir binnen 48h zurück.' },
+          { q: 'Wie erhalte ich meinen Empfehlungsbonus?', a: 'Für jede Empfehlung, die zu einem Abschluss führt, erhalten Sie 700 € (1. Empfehlung) bis 1.000 € (ab der 4.). Auszahlung nach Installation per SEPA-Überweisung auf Ihr hinterlegtes Konto.' },
         ].map((f, i) => (
           <details key={i} style={{ borderBottom: `1px solid ${DS.bd}`, padding: '12px 0' }}>
             <summary style={{ cursor: 'pointer', color: DS.tx, fontWeight: 500, listStyle: 'none', display: 'flex', justifyContent: 'space-between' }}>
