@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 
     // Kundendaten laden
     const { data: customer, error: cErr } = await supabase
-      .from('customers')
+      .from('portal_customers')
       .select('id, first_name, phone, customer_number')
       .eq('id', customerId)
       .single() as { data: { id: string; first_name: string; phone: string; customer_number: string } | null; error: unknown };
@@ -132,7 +132,7 @@ export async function GET(request: NextRequest) {
 
   // Alle Projekte mit Installation morgen
   const { data: projects } = await supabase
-    .from('projects')
+    .from('portal_projects')
     .select('id, customer_id, installation_date, customers(first_name, phone)')
     .eq('installation_date', tomorrowStr);
 

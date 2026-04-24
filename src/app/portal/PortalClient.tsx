@@ -176,7 +176,7 @@ export default function PortalClient({ snapshot, milestones, documents, monitori
     setNpsSent(true);
     try {
       const sb = createClient();
-      await sb.from('nps_responses').insert({ score: npsScore, comment: npsNote || null, trigger: 'portal', customer_id: snapshot.customer_id });
+      await sb.from('portal_nps_responses').insert({ score: npsScore, comment: npsNote || null, trigger: 'portal', customer_id: snapshot.customer_id });
     } catch {}
   };
 

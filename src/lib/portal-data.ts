@@ -21,7 +21,7 @@ export async function getPortalSnapshot(): Promise<CustomerPortalView | null> {
 export async function getMilestones(projectId: string): Promise<Milestone[]> {
   const supabase = await createServerSupabase();
   const { data } = await supabase
-    .from('milestones')
+    .from('portal_milestones')
     .select('*')
     .eq('project_id', projectId)
     .order('sort_order');
@@ -32,7 +32,7 @@ export async function getMilestones(projectId: string): Promise<Milestone[]> {
 export async function getDocuments(projectId: string): Promise<Document[]> {
   const supabase = await createServerSupabase();
   const { data: docs } = await supabase
-    .from('documents')
+    .from('portal_documents')
     .select('*')
     .eq('project_id', projectId)
     .order('uploaded_at', { ascending: false });
@@ -57,7 +57,7 @@ export async function getMonitoringData(projectId: string): Promise<MonitoringMo
   twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
 
   const { data } = await supabase
-    .from('monitoring_monthly')
+    .from('portal_monitoring_monthly')
     .select('*')
     .eq('project_id', projectId)
     .gte('month', twelveMonthsAgo.toISOString().substring(0, 10))
@@ -69,7 +69,7 @@ export async function getMonitoringData(projectId: string): Promise<MonitoringMo
 export async function getReferrals(customerId: string): Promise<Referral[]> {
   const supabase = await createServerSupabase();
   const { data } = await supabase
-    .from('referrals')
+    .from('portal_referrals')
     .select('*')
     .eq('referrer_id', customerId)
     .order('created_at', { ascending: false });
@@ -80,7 +80,7 @@ export async function getReferrals(customerId: string): Promise<Referral[]> {
 export async function getNotifications(customerId: string): Promise<Notification[]> {
   const supabase = await createServerSupabase();
   const { data } = await supabase
-    .from('notifications')
+    .from('portal_notifications')
     .select('*')
     .eq('customer_id', customerId)
     .is('read_at', null)
@@ -92,7 +92,7 @@ export async function getNotifications(customerId: string): Promise<Notification
 // ─── NPS abgeben ───────────────────────────────────────────────
 export async function submitNps(customerId: string, score: number, comment?: string) {
   const supabase = await createServerSupabase();
-  return supabase.from('nps_responses').insert({
+  return supabase.from('portal_nps_responses').insert({
     customer_id: customerId,
     score,
     comment: comment ?? null,
@@ -104,7 +104,7 @@ export async function submitNps(customerId: string, score: number, comment?: str
 export async function markNotificationRead(notificationId: string) {
   const supabase = await createServerSupabase();
   return supabase
-    .from('notifications')
+    .from('portal_notifications')
     .update({ read_at: new Date().toISOString() })
     .eq('id', notificationId);
 }
