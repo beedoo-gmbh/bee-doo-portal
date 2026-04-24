@@ -160,7 +160,7 @@ function StatusTab() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       {/* Header Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+      <div className="bd-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
         {[
           { label: 'Anlagengröße', value: `${PROJECT.kwp} kWp`, sub: `${PROJECT.module_count} Module` },
           { label: 'Batteriespeicher', value: `${PROJECT.battery_kwh} kWh`, sub: 'LFP-Technologie' },
@@ -234,7 +234,7 @@ function StatusTab() {
 
       {/* Satellite + Address */}
       <Card style={{ padding: 0, overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 0 }}>
+        <div className="bd-sat" style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 0 }}>
           <div style={{ position: 'relative', minHeight: 280, background: '#e5e7eb' }}>
             <iframe
               src="https://maps.google.com/maps?q=Detmolder+Str.+112,+33100+Paderborn&t=k&z=19&ie=UTF8&iwloc=&output=embed"
@@ -261,7 +261,7 @@ function StatusTab() {
       {/* Project Details */}
       <Card>
         <SectionTitle>Projektdetails</SectionTitle>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
+        <div className="bd-details-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
           {[
             ['Auftragsnummer', PROJECT.id],
             ['Installateur', PROJECT.installer],
@@ -329,7 +329,7 @@ function MonitoringTab() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+      <div className="bd-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
         {[
           { label: 'Erzeugte Energie',  value: `${totalKwh} kWh`,  sub: 'seit Installation',       color: DS.y    },
           { label: 'Ersparnisse',        value: `${totalSavings} €`, sub: 'Stromkosten gespart',    color: DS.green },
@@ -672,7 +672,7 @@ function SystemTab() {
         </p>
 
         {/* Produkt-Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+        <div className="bd-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
           <ProductCard
             img="/products/aiko-modul.webp"
             Icon={Sun}
@@ -738,7 +738,7 @@ function SystemTab() {
         <p style={{ color: DS.dm, fontSize: 13, marginTop: -8, marginBottom: 16 }}>
           Beispielbilder aus vergleichbaren Paderborner Projekten. Am Montagetag bekommen Sie eigene Fotos in diese Galerie.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+        <div className="bd-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
           <GalleryTile img="/products/energiehaus.webp" label="Komplett-System (Anlage + Speicher + Wallbox)" />
           <GalleryTile img="/products/montage.webp"     label="Montage-Tag: 1 Arbeitstag inkl. Gerüst" />
         </div>
@@ -843,7 +843,7 @@ function SupportTab() {
         </div>
       </Card>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div className="bd-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         <Card>
           <div style={{ color: DS.y, marginBottom: 10 }}><Headphones size={24} strokeWidth={1.75} /></div>
           <div style={{ fontWeight: 600, color: DS.tx, marginBottom: 4 }}>Service Hotline</div>
@@ -881,7 +881,7 @@ function SupportTab() {
         <p style={{ color: DS.dm, fontSize: 13, marginTop: -8, marginBottom: 16 }}>
           Drei bee-doo Kunden, drei Projekte, drei ehrliche Meinungen. Klicken Sie rein — die Videos starten nicht automatisch.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+        <div className="bd-testimonial-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
           <TestimonialVideo
             guid="34d3ccc5-2797-4d33-9957-53716d2baa50"
             name="Carolin Mack"
@@ -946,10 +946,31 @@ export default function PortalDemo() {
   return (
     <>
       <style>{`
-        
         * { box-sizing: border-box; }
         body { margin: 0; background: ${DS.bg}; }
         details summary::-webkit-details-marker { display: none; }
+
+        /* Mobile Polish */
+        @media (max-width: 900px) {
+          .bd-main-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .bd-sidebar { position: sticky; top: 64px; z-index: 40; background: ${DS.bg}; }
+          .bd-sidebar .bd-quick-contact, .bd-sidebar .bd-project-card { display: none; }
+          .bd-sidebar nav { flex-direction: row !important; overflow-x: auto; gap: 6px !important; padding-bottom: 6px; }
+          .bd-sidebar nav button { white-space: nowrap; border-left: none !important; border-bottom: 3px solid transparent !important; padding: 10px 14px !important; }
+          .bd-sidebar nav button.is-active { border-bottom-color: ${DS.y} !important; }
+          .bd-grid-3 { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .bd-grid-2 { grid-template-columns: 1fr !important; }
+          .bd-sat { grid-template-columns: 1fr !important; }
+          .bd-sat iframe { min-height: 220px !important; }
+          .bd-details-grid { grid-template-columns: 1fr !important; }
+          .bd-trust-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+          .bd-header-right { gap: 10px !important; }
+          .bd-header-right .bd-avatar-text { display: none; }
+        }
+        @media (max-width: 560px) {
+          .bd-trust-grid { grid-template-columns: 1fr !important; }
+          .bd-testimonial-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
       <div style={{ minHeight: '100vh', background: DS.bg, fontFamily: DS.font, color: DS.tx }}>
@@ -962,7 +983,7 @@ export default function PortalDemo() {
               <span style={{ color: DS.dm, fontSize: 14, fontWeight: 500, letterSpacing: '0.3px' }}>Kundenportal</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <div className="bd-header-right" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               {/* Demo Badge */}
               <span style={{ background: DS.c2, color: DS.dm, padding: '5px 12px', borderRadius: 6, fontSize: 11, fontWeight: 600, letterSpacing: '0.4px', textTransform: 'uppercase', border: `1px solid ${DS.bd}` }}>
                 Demo
@@ -981,7 +1002,7 @@ export default function PortalDemo() {
                 <div style={{ width: 36, height: 36, borderRadius: '50%', background: DS.yDim, border: `2px solid ${DS.yBd}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: DS.y }}>
                   TB
                 </div>
-                <div style={{ lineHeight: 1.3 }}>
+                <div className="bd-avatar-text" style={{ lineHeight: 1.3 }}>
                   <div style={{ fontSize: 13, fontWeight: 600 }}>{CUSTOMER.name}</div>
                   <div style={{ fontSize: 11, color: DS.dm }}>Paderborn</div>
                 </div>
@@ -993,7 +1014,9 @@ export default function PortalDemo() {
         {/* Notifications Banner */}
         <div style={{ background: 'rgba(59,130,246,0.08)', borderBottom: `1px solid rgba(59,130,246,0.2)`, padding: '10px 24px' }}>
           <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 18 }}>●</span>
+            <div style={{ width: 22, height: 22, borderRadius: '50%', background: `${DS.blue}18`, color: DS.blue, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Bell size={11} strokeWidth={2.4} />
+            </div>
             <span style={{ color: DS.tx, fontSize: 13 }}>
               <strong style={{ color: DS.blue }}>Neu:</strong> Ihr Installationstermin ist bestätigt — 28. Februar 2025. Das Montageteam kontaktiert Sie 2 Tage vorher.
             </span>
@@ -1001,13 +1024,15 @@ export default function PortalDemo() {
         </div>
 
         {/* Main Layout */}
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '32px 24px', display: 'grid', gridTemplateColumns: '240px 1fr', gap: 24 }}>
+        <div className="bd-main-grid" style={{ maxWidth: 1100, margin: '0 auto', padding: '32px 24px', display: 'grid', gridTemplateColumns: '240px 1fr', gap: 24 }}>
           {/* Sidebar */}
-          <aside>
+          <aside className="bd-sidebar">
             {/* Project Card */}
             <Card style={{ marginBottom: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                <span style={{ fontSize: 24 }}>☀️</span>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: DS.yDim, border: `1px solid ${DS.yBd}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: DS.y }}>
+                  <Sun size={18} strokeWidth={2} />
+                </div>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: 14 }}>{PROJECT.kwp} kWp Anlage</div>
                   <div style={{ color: DS.dm, fontSize: 12 }}>Paderborn</div>
@@ -1028,7 +1053,7 @@ export default function PortalDemo() {
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id)}
-                  style={{
+                  className={tab === t.id ? 'is-active' : ''} style={{
                     display: 'flex', alignItems: 'center', gap: 10,
                     padding: '11px 16px', borderRadius: 10, border: 'none', cursor: 'pointer',
                     background: tab === t.id ? DS.yDim : 'transparent',
@@ -1046,7 +1071,7 @@ export default function PortalDemo() {
             </nav>
 
             {/* Quick Contact */}
-            <Card style={{ marginTop: 16 }}>
+            <Card style={{ marginTop: 16 }} className="bd-quick-contact">
               <div style={{ fontSize: 13, color: DS.dm, marginBottom: 8 }}>Schnellkontakt</div>
               <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 4 }}>Kevin Schreiber</div>
               <div style={{ color: DS.dm, fontSize: 12 }}>Ihr Berater</div>
@@ -1078,7 +1103,7 @@ export default function PortalDemo() {
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: 16,
-          }}>
+          }} className="bd-trust-grid">
             <TrustBadge Icon={Lock}        title="256-Bit SSL"          subtitle="Verschlüsselte Verbindung" />
             <TrustBadge Icon={ShieldCheck} title="DSGVO-konform"         subtitle="Ihre Daten sicher in DE" />
             <TrustBadge Icon={Award}       title="Meisterbetrieb"        subtitle="HWK-geprüft und zertifiziert" />
