@@ -745,13 +745,13 @@ function SystemTab() {
             img="/products/aiko-modul.webp"
             Icon={Sun}
             kicker="Photovoltaik-Module"
-            title="AIKO Neostar 2S+"
+            title="AIKO Neostar 3S+ Vollschwarz"
             specs={[
               ['Anzahl', '24 Module'],
-              ['Leistung pro Modul', '480 Wp'],
+              ['Leistung pro Modul', '460 Wp'],
               ['Gesamtleistung', '9,8 kWp'],
               ['Produktgarantie', '30 Jahre'],
-              ['Wirkungsgrad', '23,8 %'],
+              ['Wirkungsgrad', '24,1 %'],
               ['Optik', 'Vollschwarz (Full-Black)'],
             ]}
           />
@@ -1320,7 +1320,7 @@ export default function PortalDemo() {
             marginTop: 14,
             letterSpacing: 0.3,
           }}>
-            bee-doo GmbH &middot; Detmolder Str. 112 &middot; 33100 Paderborn &middot; HRB 19348 &middot; USt-ID: DE356789012
+            bee-doo GmbH &middot; Am Stadtholz 39 &middot; 33609 Bielefeld &middot; HRB 46243 &middot; USt-ID: DE323940446 &middot; GF: Patrick Grabowski & Olaf Schader
           </div>
         </div>
       </div>

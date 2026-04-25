@@ -20,6 +20,7 @@ const nextConfig = {
               "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
               "img-src 'self' data: blob: https:",
               "connect-src 'self' https://supabase.bee-doo.de https://api.bee-doo.de",
+              "frame-src 'self' https://maps.google.com https://www.google.com https://iframe.mediadelivery.net",
               "frame-ancestors 'none'",
               "object-src 'none'",
               "base-uri 'self'",
