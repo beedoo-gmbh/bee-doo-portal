@@ -429,6 +429,55 @@ export default function PortalClient({ snapshot, milestones, documents, monitori
                   )}
                 </div>
               </Card>
+
+              {/* Energiefluss — Pre-Sale gelockt, Post-Sale Live */}
+              <Card style={{ overflow: 'hidden' }}>
+                <SectionLabel>⚡ Energiefluss — Live</SectionLabel>
+                {milestone_current >= 3 ? (
+                  <div>
+                    <div style={{ fontSize: 13, color: DS.dm, marginBottom: 14 }}>
+                      Momentaufnahme: Ihre Anlage produziert gerade <strong style={{ color: DS.y }}>{(total_kwh / 8760).toFixed(1)} kW</strong>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12 }}>
+                      {[
+                        { label: 'PV-Erzeugung', val: `${(total_kwh / 8760).toFixed(1)} kW`, icon: '☀️' },
+                        { label: 'Eigenverbrauch', val: `${(total_kwh / 8760 * 0.6).toFixed(1)} kW`, icon: '🏠' },
+                        { label: 'Einspeisung', val: `${(total_kwh / 8760 * 0.4).toFixed(1)} kW`, icon: '⚡' },
+                      ].map((it, i) => (
+                        <div key={i} style={{ background: DS.c2, borderRadius: 10, padding: 14, textAlign: 'center' }}>
+                          <div style={{ fontSize: 20 }}>{it.icon}</div>
+                          <div style={{ fontSize: 18, fontWeight: 800, color: DS.y, marginTop: 6 }}>{it.val}</div>
+                          <div style={{ fontSize: 11, color: DS.dm, marginTop: 2 }}>{it.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ background: DS.c2, borderRadius: 10, padding: '32px 16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 36 }}>🔒</span>
+                    <div style={{ fontSize: 14, fontWeight: 600 }}>Energiefluss</div>
+                    <div style={{ fontSize: 12, color: DS.dm, textAlign: 'center' }}>Live-Daten Ihrer Anlage stehen nach Inbetriebnahme zur Verfügung.</div>
+                  </div>
+                )}
+              </Card>
+
+              {/* Montage-Galerie */}
+              <Card>
+                <SectionLabel>📸 So sieht eine bee-doo Anlage aus</SectionLabel>
+                <div style={{ fontSize: 12, color: DS.dm, marginBottom: 14 }}>Beispielbilder vergleichbarer Projekte. Am Montagetag erhalten Sie eigene Fotos.</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 10 }}>
+                  {[
+                    { src: '/products/energiehaus.webp', label: 'Komplett-System' },
+                    { src: '/products/montage.webp',     label: 'Montage-Tag' },
+                    { src: '/products/aiko-modul.webp',  label: 'AIKO Neostar 3S+' },
+                    { src: '/products/waermepumpe.webp', label: 'Wärmepumpe' },
+                  ].map((g,i) => (
+                    <div key={i} style={{ position: 'relative', borderRadius: 10, overflow: 'hidden', aspectRatio: '4/3', background: `#0a0a0a url(${g.src}) center/cover no-repeat` }}>
+                      <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '8px 10px', background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', fontSize: 11, color: '#fff', fontWeight: 600 }}>{g.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
             </div>
           )}
 
@@ -691,6 +740,31 @@ export default function PortalClient({ snapshot, milestones, documents, monitori
                   <div style={{ fontSize: 11, color: DS.dm, textAlign: 'center', padding: '0 16px' }}>Steht nach dem Erstgespräch zur Verfügung</div>
                 </div>
               )}
+            </div>
+          </Card>
+
+          {/* Ihr persönlicher Ansprechpartner */}
+          <Card style={{ padding: 18 }}>
+            <SectionLabel>👤 Ihr Ansprechpartner</SectionLabel>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 6 }}>
+              <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'linear-gradient(135deg,#F5C500,#f97316)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: '#0a0a0a', fontSize: 18, flexShrink: 0 }}>
+                {(berater || 'B').split(' ').map(p => p[0]).join('').slice(0,2).toUpperCase()}
+              </div>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 2 }}>{berater}</div>
+                <div style={{ fontSize: 11, color: DS.dm }}>Ihr persönlicher bee-doo Berater</div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 14 }}>
+              <a href="tel:080022336640" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: DS.c2, borderRadius: 8, fontSize: 12, color: DS.tx, textDecoration: 'none', border: `1px solid ${DS.bd}` }}>
+                <span style={{ fontSize: 14 }}>📞</span> 0800 22 33 664
+              </a>
+              <a href={`mailto:service@bee-doo.de?subject=Anfrage Kunde ${fullName}`} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: DS.c2, borderRadius: 8, fontSize: 12, color: DS.tx, textDecoration: 'none', border: `1px solid ${DS.bd}` }}>
+                <span style={{ fontSize: 14 }}>✉️</span> service@bee-doo.de
+              </a>
+              <a href="https://wa.me/4915122332266" target="_blank" rel="noopener" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#25D366', borderRadius: 8, fontSize: 12, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
+                <span style={{ fontSize: 14 }}>💬</span> Per WhatsApp schreiben
+              </a>
             </div>
           </Card>
 
